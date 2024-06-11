@@ -1,0 +1,113 @@
+.quiz-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.quiz-heading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.loading-spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.result-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.question-box {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.question-number {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.question-text {
+  margin-bottom: 20px;
+}
+
+.options-list {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.option-item {
+  display: flex;
+  font-size: 20px;
+  font-weight: bold;
+  align-items: center; /* Align items vertically in the center */
+  margin-bottom: 15px;
+  padding: 15px; /* Add spacing between option items */
+}
+
+.option-item input[type="radio"] {
+  margin-right: 10px; /* Add spacing between radio button and label */
+}
+
+.option-item label {
+  margin: 0; /* Reset margin for label */
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.option-item label:hover {
+  background-color: #f0f0f0;
+}
+
+.button-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.submit-button {
+  background-color: #28a745;
+}
+
+.submit-button:hover {
+  background-color: #218838;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

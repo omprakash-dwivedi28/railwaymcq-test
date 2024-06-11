@@ -1,0 +1,96 @@
+/* Background */
+body {
+  background: linear-gradient(to bottom, #faeeee, #fad0c4);
+  color: #333;
+}
+
+/* Headers */
+h1,
+h2,
+h3 {
+  color: #1a2a6c;
+}
+
+/* Paragraphs */
+p {
+  color: #5d4157;
+}
+
+/* Links */
+a {
+  color: #ff388c;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #ff4b2b;
+}
+
+/* Buttons */
+.button {
+  background-color: #f3e7e9;
+  color: #333;
+  border: 2px solid #ff388c;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button:hover {
+  background-color: #ff388c;
+  color: #fff;
+}
+
+/* Form Inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+  background-color: #f3e7e9;
+  border: 2px solid #ff388c;
+  border-radius: 5px;
+  padding: 8px;
+  color: #333;
+}
+
+/* Form Labels */
+label {
+  color: #1a2a6c;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #ff388c;
+  color: #fff;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  color: #f3e7e9;
+}
+
+.button {
+  background-color: #f3e7e9;
+  color: #333;
+  border: 2px solid #ff388c;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  text-align: center; /* Horizontal alignment */
+  line-height: 1; /* Vertical alignment */
+}
+
+/* If you need to adjust vertical alignment further */
+.button span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}

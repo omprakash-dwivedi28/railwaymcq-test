@@ -1,0 +1,58 @@
+.editable-qbank-container {
+  font-family: Arial, sans-serif;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.qbank-table-container {
+  overflow-x: auto;
+}
+
+.qbank-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.qbank-table th,
+.qbank-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.qbank-table th {
+  background-color: #f2f2f2;
+}
+
+.qbank-table td textarea,
+.qbank-table td input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination button:hover {
+  background-color: #0056b3;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
