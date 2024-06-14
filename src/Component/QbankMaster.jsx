@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./feedback.css";
 
 const QbankMaster = () => {
   const [formData, setFormData] = useState({
@@ -28,7 +29,7 @@ const QbankMaster = () => {
         "https://railwaymcq.com/student/subMaster_api.php"
       );
       setSubjects(response.data);
-      console.log("Subject Code is ::::::-" + formData.subcode);
+      // console.log("Subject Code is ::::::-" + formData.subcode);
     } catch (error) {
       console.error(error);
     }
@@ -92,8 +93,8 @@ const QbankMaster = () => {
   };
   console.log(formData);
   return (
-    <div>
-      <h2>Qbank Page</h2>
+    <div className="inspection-note-container">
+      <h2>Add Question bank </h2>
       <form>
         <select
           name="subcode"
@@ -105,7 +106,7 @@ const QbankMaster = () => {
           </option>
           {subjects.map((subject, index) => (
             <option key={index} value={subject.subcode}>
-              {subject.sub}+{subject.subcode}
+              {subject.sub}
             </option>
           ))}
         </select>
@@ -187,8 +188,12 @@ const QbankMaster = () => {
           onChange={handleInputChange}
           placeholder="Reference"
         />
-        <button type="button" onClick={handleInsert}>
-          Insert
+        <button
+          className="btn btn-primary save-note-button"
+          type="button"
+          onClick={handleInsert}
+        >
+          Save
         </button>
         {/* <button type="button" onClick={handleUpdate}>
           Update

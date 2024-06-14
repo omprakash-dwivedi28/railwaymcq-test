@@ -8,12 +8,14 @@ const ai = axios.create({
 });
 
 export default function FeedBack_user(props) {
+  const { subjectData, adminloginData } = useInitialContext();
+
   const [formData, setFormData] = useState({
     zone: null,
     division: null,
     deptt: null,
     message: null,
-    message_by: null,
+    message_by: adminloginData?.userData?.name,
     level: null,
   });
   const [errors, setErrors] = useState({});
@@ -25,7 +27,6 @@ export default function FeedBack_user(props) {
     SetZoneAndDivision,
   } = useInitialContext();
   const { zoneAndDivisionData } = useInitialContext();
-  const { subjectData } = useInitialContext();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,7 +38,6 @@ export default function FeedBack_user(props) {
 
     // Validate input
     if (name === "zone" && value === "") {
-      //alert("hi");
       setErrors({ ...errors, zone: "Please select a zone" });
     } else if (name === "division" && value === "") {
       setErrors({ ...errors, division: "Please select a division" });
@@ -90,7 +90,7 @@ export default function FeedBack_user(props) {
           division: "",
           deptt: "",
           message: "",
-          message_by: "",
+          message_by: "" || adminloginData?.userData?.name,
           level: "",
         });
       } catch (error) {
@@ -163,7 +163,7 @@ export default function FeedBack_user(props) {
           <option>Please select Department</option>
           {subjectData &&
             subjectData.map((depttObject, index) => (
-              <option key={index} value={depttObject.depttcode}>
+              <option key={index} value={depttObject.deptt}>
                 {depttObject.deptt}
                 {console.log("Deptt_code:::::" + depttObject.depttcode)}
               </option>
@@ -187,7 +187,8 @@ export default function FeedBack_user(props) {
           type="text"
           className="custom-textbox" // Apply custom class for styling
           name="message_by"
-          value={formData.message_by}
+          // value={formData.message_by}
+          value={adminloginData?.userData?.name}
           onChange={handleChange}
           placeholder="Enter your good name please..."
           // placeholder={a.name}

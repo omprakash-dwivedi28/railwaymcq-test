@@ -21,6 +21,7 @@ const AddVideolinks = () => {
   const [linkAvailability, setLinkAvailability] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [linkAvailabilityStatus, setLinkAvailabilityStatus] = useState({});
 
   useEffect(() => {
     fetchSubjects();
@@ -128,20 +129,34 @@ const AddVideolinks = () => {
     try {
       const results = await YouTubeService.searchVideos(searchQuery);
       setSearchResults(results.items);
+      const linkStatus = {};
+      await Promise.all(
+        results.items.map(async (video) => {
+          const videoLink = video.id.videoId;
+          const isAvailable = await checkAvailability("link", videoLink);
+          linkStatus[videoLink] = isAvailable;
+        })
+      );
+      setLinkAvailabilityStatus(linkStatus);
     } catch (error) {
       console.error("Error searching for videos", error);
     }
   };
 
   const handleVideoSelect = (video) => {
-    setFormData({
-      ...formData,
-      title: video.snippet.title,
-      link: `${video.id.videoId}`,
-    });
-    setSearchResults([]);
-    setTitleAvailability(true); // Assuming new title is always available
-    setLinkAvailability(true); // Assuming new link is always available
+    const videoLink = video.id.videoId;
+    const linkIsAvailable = linkAvailabilityStatus[videoLink];
+    setLinkAvailability(linkIsAvailable);
+    if (linkIsAvailable) {
+      setFormData({
+        ...formData,
+        title: video.snippet.title,
+        link: videoLink,
+      });
+      setTitleAvailability(true);
+    } else {
+      alert("Link already exists! Please select another video.");
+    }
   };
 
   return (
@@ -229,7 +244,6 @@ const AddVideolinks = () => {
           Search
         </button>
       </form>
-
       {searchResults.length > 0 && (
         <div>
           <h2>Search Results</h2>
@@ -238,7 +252,17 @@ const AddVideolinks = () => {
               <li
                 key={video.id.videoId}
                 onClick={() => handleVideoSelect(video)}
+                style={{
+                  backgroundColor:
+                    linkAvailabilityStatus[video.id.videoId] === false
+                      ? "indianred"
+                      : linkAvailabilityStatus[video.id.videoId] === true
+                      ? "palegreen"
+                      : "white",
+                  cursor: "pointer",
+                }}
               >
+                {console.log("video.id.videoId", video.id.videoId)}
                 <img
                   src={video.snippet.thumbnails.default.url}
                   alt={video.snippet.title}

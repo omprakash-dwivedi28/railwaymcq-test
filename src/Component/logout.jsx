@@ -4,12 +4,10 @@ import { useInitialContext } from "../context/InitialContext";
 import { useNavigate } from "react-router-dom";
 
 function Logout() {
-  // const { adminloginData, Logout, userloginData } = useInitialContext();
   const { adminloginData, Logout } = useInitialContext();
 
   const navigate = useNavigate();
   console.log("adminloginData", adminloginData);
-  // console.log("userloginData", userloginData);
 
   const handleLogout = async () => {
     try {
@@ -21,20 +19,13 @@ function Logout() {
       );
       if (adminloginData?.userData?.login_type === "admin") Logout("admin");
       if (adminloginData?.userData?.login_type === "user") Logout("user");
+      if (adminloginData?.userData?.login_type === "partener")
+        Logout("partener");
     } catch (error) {
       console.error("Logout error:", error);
     }
   };
-  // useEffect(() => {
-  //   if (adminloginData === null) navigate("/LoginForm");
-  //   if (userloginData === null) navigate("/LoginForm");
-  // }, [adminloginData, userloginData]);
 
-  // useEffect(() => {
-  //   if (!adminloginData && !userloginData) {
-  //     navigate("/LoginForm");
-  //   }
-  // }, [adminloginData, userloginData, navigate]);
   useEffect(() => {
     if (!adminloginData) {
       navigate("/LoginForm");

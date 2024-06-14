@@ -10,6 +10,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [admin, setAdmin] = useState(null);
+
   const navigate = useNavigate();
 
   const { adminloginData, adminloginInfo } = useInitialContext();
@@ -34,6 +35,12 @@ const LoginForm = () => {
       } else if (response.data.userData.login_type === "user") {
         localStorage.setItem("user", JSON.stringify(response.data.userData));
         adminloginInfo(response.data);
+      } else if (response.data.userData.login_type === "partener") {
+        localStorage.setItem(
+          "partener",
+          JSON.stringify(response.data.userData)
+        );
+        adminloginInfo(response.data);
       } else {
         console.log("Return responsive data through login" + response.data);
         setError("Invalid Login Id & Password or Unauthorise user");
@@ -52,6 +59,8 @@ const LoginForm = () => {
     if (adminloginData?.userData?.login_type === "admin") {
       navigate("/AdminPage");
     } else if (adminloginData?.userData?.login_type === "user") {
+      navigate("/AdminPage");
+    } else if (adminloginData?.userData?.login_type === "partener") {
       navigate("/AdminPage");
     }
   }, [adminloginData]);
@@ -78,18 +87,7 @@ const LoginForm = () => {
               className="form-control"
             />
           </div>
-          {/* <div className="form-group">
-              <label>Login Type:</label>
-              <select
-                name="logintype"
-                value={loginType}
-                onChange={(e) => setLoginType(e.target.value)}
-                className="form-control"
-              >
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-              </select>
-            </div> */}
+
           {error && <div className="error">{error}</div>}
           <button type="submit" className="btn">
             Login

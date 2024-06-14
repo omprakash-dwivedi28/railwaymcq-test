@@ -11,6 +11,7 @@ const AdminPage = () => {
   const { adminloginData } = useInitialContext();
 
   if (adminloginData?.userData?.login_type === "admin") {
+    console.log(adminloginData?.userData?.login_type);
     return (
       <div className="admin-container">
         <h2>Welcome, {adminloginData?.userData?.name} sir ji!</h2>
@@ -55,6 +56,7 @@ const AdminPage = () => {
       </div>
     );
   } else if (adminloginData?.userData?.login_type === "user") {
+    console.log(adminloginData?.userData?.login_type);
     return (
       <div className="admin-container">
         <div className="admin-container">
@@ -66,6 +68,25 @@ const AdminPage = () => {
               </Link>
             </li>
           </ul>
+        </div>
+        <Logout />
+      </div>
+    );
+  } else if (adminloginData?.userData?.login_type === "partener") {
+    console.log(adminloginData?.userData?.login_type);
+    return (
+      <div className="admin-container">
+        <div className="admin-container">
+          <h2>Welcome, {adminloginData?.userData?.name} Sir!!!</h2>
+
+          <h1>Comming Soon........Under Development...........</h1>
+          {/* <ul className="admin-menu">
+            <li>
+              <Link to="/InspectionNote" className="menu-item">
+                Note
+              </Link>
+            </li>
+          </ul> */}
         </div>
         <Logout />
       </div>

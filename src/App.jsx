@@ -4,7 +4,6 @@ import Navbar from "./Component/navbar.jsx";
 import FeedBack_user from "./Component/FeedBack_user.jsx";
 import About from "./Component/about.jsx";
 import LoginForm from "./Component/LoginForm.jsx";
-// import Login from "./Component/Login.jsx";
 import ShowFeedback from "./Component/ShowFeedback.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import QuizSetup from "./Component/QuizSetup.jsx";
@@ -23,6 +22,7 @@ import SignUpUser from "./Component/SignUpUser.jsx";
 import Alert from "./Component/Alert.jsx";
 import DeletedInspectionNotes from "./Component/DeletedInspectionNotes.jsx";
 import AddDept from "./Component/AddDept.jsx";
+// import PdfReader from "./Component/PdfReader.jsx";
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -42,7 +42,6 @@ function App() {
       <BrowserRouter>
         <Navbar title="Railway MCQ" quiz="MCQ Section" />
         <Alert alert={alert} />
-
         <Routes>
           <Route path="/" element={<About />} />
           <Route
@@ -53,7 +52,6 @@ function App() {
             path="/SignUpUser"
             element={<SignUpUser showAlert={showAlert} />}
           />
-
           <Route
             path="/InspectionNote"
             element={<InspectionNote showAlert={showAlert} />}
@@ -63,7 +61,6 @@ function App() {
             path="/LoginForm"
             element={<LoginForm showAlert={showAlert} />}
           />
-
           <Route
             path="/QuizSetup"
             element={<QuizSetup showAlert={showAlert} />}
@@ -107,6 +104,7 @@ function App() {
             path="/DeletedInspectionNotes"
             element={<DeletedInspectionNotes showAlert={showAlert} />}
           />
+          {/* <Route path="/PdfReader" element={<PdfReader />} /> */}
         </Routes>
       </BrowserRouter>
     </InitialProvider>

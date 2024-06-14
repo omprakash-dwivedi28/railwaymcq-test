@@ -9,7 +9,6 @@ const AddDept = ({ showAlert }) => {
   const [subject, setSubject] = useState("");
   const [subcode, setSubcode] = useState("");
   const [topic, setTopic] = useState("");
-  const [topcode, setTopcode] = useState("");
   const [maxDepttCode, setMaxDepttCode] = useState(0);
   const [maxSubcode, setMaxSubcode] = useState(0);
   const [maxTopcode, setMaxTopcode] = useState(0);
@@ -18,6 +17,7 @@ const AddDept = ({ showAlert }) => {
   const [selectedDept, setSelectedDept] = useState(null);
   const [isNewDeptt, setIsNewDeptt] = useState(false);
   const [isNewSubject, setIsNewSubject] = useState(false);
+  const [selectedSubject, setSelectedSubject] = useState("");
 
   useEffect(() => {
     fetchMaxDepttCode();
@@ -93,19 +93,18 @@ const AddDept = ({ showAlert }) => {
     setSelectedDept(selectedDeptObj);
     setDeptt(selectedDeptObj.deptt);
     setDepttcode(selectedDeptObj.depttcode);
-    setIsNewSubject(false); // Reset new subject flag when changing department
+    setIsNewSubject(false);
     setSubcode("");
+    setTopic("");
     setError("");
   };
 
   const handleSubjectChange = (e) => {
-    setSubject(e.target.value);
-    if (!isNewSubject && selectedDept && selectedDept.subjects) {
-      const foundSubcode = Object.keys(selectedDept.subjects).find(
-        (code) => selectedDept.subjects[code].sub === e.target.value
-      );
-      setSubcode(foundSubcode);
-    }
+    const selectedSubjectObj = selectedDept.subjects[e.target.value];
+    setSelectedSubject(selectedSubjectObj);
+    setSubject(selectedSubjectObj.sub);
+    setSubcode(e.target.value);
+    setTopic("");
   };
 
   const handleTopicChange = (e) => {
@@ -120,7 +119,6 @@ const AddDept = ({ showAlert }) => {
       return;
     }
 
-    // Validate if new subject is required and already exists
     if (isNewSubject && checkSubjectAvailability(subject)) {
       setError("Subject already exists. Please choose a different name.");
       return;
@@ -154,13 +152,11 @@ const AddDept = ({ showAlert }) => {
         fetchMaxSubcode();
       }
 
-      // Reset form fields
       setDeptt("");
       setDepttcode("");
       setSubject("");
       setSubcode("");
       setTopic("");
-      setTopcode("");
       setIsNewDeptt(false);
       setIsNewSubject(false);
       setSelectedDept(null);
@@ -273,7 +269,7 @@ const AddDept = ({ showAlert }) => {
             <select
               className="form-select"
               name="subject"
-              value={subject}
+              value={subcode}
               onChange={handleSubjectChange}
               disabled={!selectedDept || !selectedDept.subjects}
               required={!isNewDeptt}
@@ -282,7 +278,7 @@ const AddDept = ({ showAlert }) => {
               {selectedDept?.subjects &&
                 Object.entries(selectedDept.subjects).map(
                   ([subCode, subDetails], index) => (
-                    <option key={index} value={subDetails.sub}>
+                    <option key={index} value={subCode}>
                       {subDetails.sub}
                     </option>
                   )
@@ -290,6 +286,25 @@ const AddDept = ({ showAlert }) => {
             </select>
           </div>
         )}
+
+        <div className="input-container">
+          <label>Added topic:(only for verifying purpose)</label>
+          <select
+            className="form-select"
+            // name="topic"
+            // value={topic}
+            // onChange={handleTopicChange}
+            // disabled={!selectedSubject}
+          >
+            <option value="">Please watch topic before adding..........</option>
+            {selectedSubject?.topics &&
+              selectedSubject.topics.map((topicObj, index) => (
+                <option key={index} value={topicObj.topic}>
+                  {topicObj.topic}
+                </option>
+              ))}
+          </select>
+        </div>
 
         <input
           type="text"
@@ -300,7 +315,7 @@ const AddDept = ({ showAlert }) => {
           required
         />
         <button className="btn btn-primary save-note-button" type="submit">
-          Add/Update
+          Add
         </button>
       </form>
     </div>

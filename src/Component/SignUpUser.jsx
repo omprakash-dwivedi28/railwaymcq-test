@@ -17,10 +17,13 @@ export default function SignUpUser(props) {
     name: "",
     userName: "",
     password: "",
+    partener_flag: "0",
   });
   const [errors, setErrors] = useState({});
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
   const [isUsernameAvailable, setIsUsernameAvailable] = useState(true);
+  const [isPartener, setIsPartener] = useState(false);
+
   const navigate = useNavigate();
   const { SetZoneAndDivision, zoneAndDivisionData, departmentData } =
     useInitialContext();
@@ -102,6 +105,7 @@ export default function SignUpUser(props) {
         formData
       );
       console.log("User added successfully:", response.data);
+
       alert("User added successfully");
       navigate("/LoginForm");
       setFormData({
@@ -111,10 +115,21 @@ export default function SignUpUser(props) {
         name: "",
         userName: "",
         password: "",
+        partener_flag: "0",
       });
+      setIsPartener(false);
     } catch (error) {
       console.error("Error adding data:", error);
     }
+  };
+
+  const handleIsNewPartener = (e) => {
+    const { checked } = e.target;
+    setIsPartener(checked);
+    setFormData((prevState) => ({
+      ...prevState,
+      partener_flag: checked ? "1" : "0",
+    }));
   };
 
   useEffect(() => {
@@ -126,7 +141,15 @@ export default function SignUpUser(props) {
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <h6>{props.heading}</h6>
-
+        <label>
+          <input
+            type="checkbox"
+            checked={isPartener}
+            onChange={handleIsNewPartener}
+          />
+          Tick this to be a YouTube video Partner
+        </label>
+        {console.log("isPartener:::::::", isPartener)}
         <select
           className="form-select"
           name="zone"

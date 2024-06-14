@@ -75,7 +75,7 @@ function QuizSetup() {
       topicCode: selectedTopic.topicCode,
       difficulty: difficulty,
       subjectcode: selectedSubject.subCode,
-      name: adminloginData?.userData?.name,
+      name: adminloginData?.userData?.name || name,
     };
 
     navigate("/Quiz", { state: dataToSend });
@@ -86,7 +86,7 @@ function QuizSetup() {
       topicCode: selectedTopic.topicCode,
       difficulty: difficulty,
       subjectcode: selectedSubject.subCode,
-      name: adminloginData?.userData?.name,
+      name: adminloginData?.userData?.name || name || "GEST",
     };
 
     if (selectedOption === "option1") {

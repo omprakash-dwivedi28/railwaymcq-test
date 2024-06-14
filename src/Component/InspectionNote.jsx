@@ -229,20 +229,25 @@ const InspectionNote = ({ showAlert }) => {
   };
 
   const handleDelete = async (noteId) => {
-    try {
-      const response = await axios.put(
-        "https://railwaymcq.com/student/NotesRecycleBin_api.php",
-        {
-          id: noteId,
-        }
-      );
-      alert("Notes Deleted successfully");
-      console.log("Deleted notes:", response.data);
-      showAlert("Note deleted successfully!", "success");
-      fetchNotes();
-    } catch (error) {
-      console.error("Error deleting note:", error);
-      alert("Failed to delete note!");
+    if (
+      window.confirm(`Are you sure you want to delete this note id: ${noteId}?`)
+    ) {
+      try {
+        const response = await axios.put(
+          "https://railwaymcq.com/student/NotesRecycleBin_api.php",
+          {
+            id: noteId,
+          }
+        );
+
+        // alert("Notes Deleted successfully");
+        // console.log("Deleted notes:", response.data);
+        showAlert("Note deleted successfully!", "success");
+        fetchNotes();
+      } catch (error) {
+        console.error("Error deleting note:", error);
+        alert("Failed to delete note!");
+      }
     }
   };
 
