@@ -78,15 +78,13 @@ const AdminPage = () => {
       <div className="admin-container">
         <div className="admin-container">
           <h2>Welcome, {adminloginData?.userData?.name} Sir!!!</h2>
-
-          <h1>Comming Soon........Under Development...........</h1>
-          {/* <ul className="admin-menu">
+          <ul className="admin-menu">
             <li>
-              <Link to="/InspectionNote" className="menu-item">
-                Note
+              <Link to="/AddVideolinksPartner" className="menu-item">
+                Add Video
               </Link>
             </li>
-          </ul> */}
+          </ul>
         </div>
         <Logout />
       </div>

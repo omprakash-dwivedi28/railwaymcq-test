@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useInitialContext } from "../context/InitialContext";
-import YouTubeService from "./YouTubeService";
 import { FaSearch } from "react-icons/fa";
 import "./feedback.css";
 
-const AddVideolinks = () => {
+const AddVideolinksPartner = () => {
   const { adminloginData } = useInitialContext();
+
+  const YOUTUBE_API_KEY = adminloginData?.userData?.API; // Replace with your YouTube API key
+  const CHANNEL_ID = adminloginData?.userData?.CH_ID; // Replace with the desired channel ID
+
   const [formData, setFormData] = useState({
     subcode: "",
     topcode: "",
@@ -22,9 +25,11 @@ const AddVideolinks = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [linkAvailabilityStatus, setLinkAvailabilityStatus] = useState({});
+  const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
     fetchSubjects();
+    fetchPlaylists();
   }, []);
 
   useEffect(() => {
@@ -103,10 +108,6 @@ const AddVideolinks = () => {
   };
 
   const handleInsert = async () => {
-    console.log(formData.subcode);
-    console.log(formData.topcode);
-    console.log(formData.title);
-    console.log(formData.link);
     if (
       !formData.subcode ||
       !formData.topcode ||
@@ -149,7 +150,7 @@ const AddVideolinks = () => {
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
     try {
-      const results = await YouTubeService.searchVideos(searchQuery);
+      const results = await searchVideos(searchQuery);
       setSearchResults(results.items);
       const linkStatus = {};
       await Promise.all(
@@ -162,6 +163,24 @@ const AddVideolinks = () => {
       setLinkAvailabilityStatus(linkStatus);
     } catch (error) {
       console.error("Error searching for videos", error);
+    }
+  };
+
+  const searchVideos = async (query) => {
+    const response = await axios.get(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&q=${query}&type=video&key=${YOUTUBE_API_KEY}`
+    );
+    return response.data;
+  };
+
+  const fetchPlaylists = async () => {
+    try {
+      const response = await axios.get(
+        `https://www.googleapis.com/youtube/v3/playlists?part=snippet&channelId=${CHANNEL_ID}&maxResults=25&key=${YOUTUBE_API_KEY}`
+      );
+      setPlaylists(response.data.items);
+    } catch (error) {
+      console.error("Error fetching playlists", error);
     }
   };
 
@@ -184,8 +203,8 @@ const AddVideolinks = () => {
 
   return (
     <div className="inspection-note-container">
-      <h2>Video links added by: {adminloginData?.userData?.name}</h2>
-
+      <h2>Welcome Partner: {adminloginData?.userData?.name}</h2>
+      {console.log("adminloginData", adminloginData)}
       <form>
         <select name="subcode" onChange={handleInputChange}>
           <option key="default" value="">
@@ -267,6 +286,21 @@ const AddVideolinks = () => {
           Search
         </button>
       </form>
+
+      {playlists.length > 0 && (
+        <div>
+          <h2>Channel Playlists</h2>
+          <ul>
+            {playlists.map((playlist) => (
+              <li key={playlist.id}>
+                <h3>{playlist.snippet.title}</h3>
+                <p>{playlist.snippet.description}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {searchResults.length > 0 && (
         <div>
           <h2>Search Results</h2>
@@ -299,4 +333,4 @@ const AddVideolinks = () => {
   );
 };
 
-export default AddVideolinks;
+export default AddVideolinksPartner;

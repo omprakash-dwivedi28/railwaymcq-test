@@ -18,6 +18,8 @@ export default function SignUpUser(props) {
     userName: "",
     password: "",
     partener_flag: "0",
+    api: "",
+    ch_id: "",
   });
   const [errors, setErrors] = useState({});
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
@@ -100,10 +102,7 @@ export default function SignUpUser(props) {
 
       console.log("Form Data:", JSON.stringify(formData, null, 2));
 
-      const response = await axios.post(
-        "https://railwaymcq.com/student/SignUp_api.php",
-        formData
-      );
+      const response = await ai.post("/", formData);
       console.log("User added successfully:", response.data);
 
       alert("User added successfully");
@@ -116,6 +115,8 @@ export default function SignUpUser(props) {
         userName: "",
         password: "",
         partener_flag: "0",
+        api: "",
+        ch_id: "",
       });
       setIsPartener(false);
     } catch (error) {
@@ -136,6 +137,12 @@ export default function SignUpUser(props) {
     SetZoneAndDivision();
   }, [SetZoneAndDivision]);
 
+  // Debugging statements to ensure data is being fetched correctly
+  useEffect(() => {
+    console.log("zoneAndDivisionData:", zoneAndDivisionData);
+    console.log("departmentData:", departmentData);
+  }, [zoneAndDivisionData, departmentData]);
+
   return (
     <div className="feedback-container">
       <h2>Sign Up</h2>
@@ -149,7 +156,26 @@ export default function SignUpUser(props) {
           />
           Tick this to be a YouTube video Partner
         </label>
-        {console.log("isPartener:::::::", isPartener)}
+        {isPartener ? (
+          <>
+            <input
+              type="text"
+              name="api"
+              value={formData.api}
+              onChange={handleChange}
+              placeholder="Enter Your YouTube API"
+              required={isPartener}
+            />
+            <input
+              type="text"
+              name="ch_id"
+              value={formData.ch_id}
+              onChange={handleChange}
+              placeholder="Enter Your Channel ID"
+              required={isPartener}
+            />
+          </>
+        ) : null}
         <select
           className="form-select"
           name="zone"
@@ -160,7 +186,7 @@ export default function SignUpUser(props) {
           {zoneAndDivisionData &&
             zoneAndDivisionData.map((zones, index) =>
               Object.entries(zones).map(([zone]) => (
-                <option key={index} value={zone}>
+                <option key={zone} value={zone}>
                   {zone}
                 </option>
               ))
@@ -179,7 +205,7 @@ export default function SignUpUser(props) {
             Object.entries(zones).map(([zone, divisions]) =>
               zone === formData.zone
                 ? divisions.map((division, index) => (
-                    <option key={index} value={division}>
+                    <option key={division} value={division}>
                       {division}
                     </option>
                   ))
@@ -197,8 +223,8 @@ export default function SignUpUser(props) {
         >
           <option value="">Please select Department</option>
           {departmentData &&
-            departmentData.map((depttObject, index) => (
-              <option key={index} value={depttObject.dept_name}>
+            departmentData.map((depttObject) => (
+              <option key={depttObject.dept_name} value={depttObject.dept_name}>
                 {depttObject.dept_name}
               </option>
             ))}

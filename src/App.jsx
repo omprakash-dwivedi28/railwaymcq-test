@@ -22,6 +22,7 @@ import SignUpUser from "./Component/SignUpUser.jsx";
 import Alert from "./Component/Alert.jsx";
 import DeletedInspectionNotes from "./Component/DeletedInspectionNotes.jsx";
 import AddDept from "./Component/AddDept.jsx";
+import AddVideolinksPartner from "./Component/AddVideolinksPartner.jsx";
 // import PdfReader from "./Component/PdfReader.jsx";
 
 function App() {
@@ -103,6 +104,10 @@ function App() {
           <Route
             path="/DeletedInspectionNotes"
             element={<DeletedInspectionNotes showAlert={showAlert} />}
+          />
+          <Route
+            path="/AddVideolinksPartner"
+            element={<AddVideolinksPartner showAlert={showAlert} />}
           />
           {/* <Route path="/PdfReader" element={<PdfReader />} /> */}
         </Routes>
