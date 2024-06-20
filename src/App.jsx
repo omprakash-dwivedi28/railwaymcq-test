@@ -23,6 +23,9 @@ import Alert from "./Component/Alert.jsx";
 import DeletedInspectionNotes from "./Component/DeletedInspectionNotes.jsx";
 import AddDept from "./Component/AddDept.jsx";
 import AddVideolinksPartner from "./Component/AddVideolinksPartner.jsx";
+import VideoApproval from "./Component/VideoApproval.jsx";
+import SummaryVideo from "./Component/SummaryVideo.jsx";
+
 // import PdfReader from "./Component/PdfReader.jsx";
 
 function App() {
@@ -108,6 +111,14 @@ function App() {
           <Route
             path="/AddVideolinksPartner"
             element={<AddVideolinksPartner showAlert={showAlert} />}
+          />
+          <Route
+            path="/VideoApproval"
+            element={<VideoApproval showAlert={showAlert} />}
+          />
+          <Route
+            path="/SummaryVideo"
+            element={<SummaryVideo showAlert={showAlert} />}
           />
           {/* <Route path="/PdfReader" element={<PdfReader />} /> */}
         </Routes>

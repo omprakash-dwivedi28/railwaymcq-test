@@ -3,6 +3,7 @@ import YouTube from "react-youtube";
 import axios from "axios";
 import "../Component/css/VideoLearner.css";
 import { useInitialContext } from "../context/InitialContext";
+import { VscLoading } from "react-icons/vsc";
 
 const VideoLearner = () => {
   const [videos, setVideos] = useState([]);
@@ -200,7 +201,10 @@ const VideoLearner = () => {
         </div>
       </div>
       {loading ? (
-        <p>Loading...</p>
+        <p>
+          <VscLoading />
+          Loading...
+        </p>
       ) : (
         <div className="video-list">
           {currentVideos.map((video) => (

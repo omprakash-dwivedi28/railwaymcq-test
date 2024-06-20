@@ -7,7 +7,8 @@ import "./feedback.css";
 const AddVideolinksPartner = () => {
   const { adminloginData } = useInitialContext();
 
-  const YOUTUBE_API_KEY = adminloginData?.userData?.API; // Replace with your YouTube API key
+  // const YOUTUBE_API_KEY = adminloginData?.userData?.API;
+  const YOUTUBE_API_KEY = "AIzaSyBv5rWqjn6fNRLBJ3szYDN1u7FlVdUKweA"; //DP
   const CHANNEL_ID = adminloginData?.userData?.CH_ID; // Replace with the desired channel ID
 
   const [formData, setFormData] = useState({
@@ -17,6 +18,7 @@ const AddVideolinksPartner = () => {
     link: "",
     description: "",
     created_by: adminloginData?.userData?.name || "",
+    partner_flag: "1",
   });
   const [subjects, setSubjects] = useState([]);
   const [topcodes, setTopcodes] = useState([]);
@@ -120,12 +122,13 @@ const AddVideolinksPartner = () => {
     }
     try {
       const response = await axios.post(
-        "https://railwaymcq.com/student/videolinks_api.php",
+        "https://railwaymcq.com/student/videolinkspartener_api.php",
         formData
       );
+      console.log(formData);
       alert("Data inserted successfully!");
       resetForm();
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error(error);
       alert("Failed to insert data!");
@@ -140,6 +143,7 @@ const AddVideolinksPartner = () => {
       link: "",
       description: "",
       created_by: adminloginData?.userData?.name || "",
+      partner_flag: "1",
     });
   };
 

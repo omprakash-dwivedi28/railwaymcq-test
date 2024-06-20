@@ -1,0 +1,87 @@
+body {
+  background-color: #f8f9fa;
+  font-family: "Arial", sans-serif;
+}
+
+.feedback-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.feedback-container h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.feedback-table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+}
+
+.feedback-table th,
+.feedback-table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.feedback-table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.feedback-table tbody + tbody {
+  border-top: 2px solid #dee2e6;
+}
+
+.table-bordered {
+  border: 1px solid #dee2e6;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.thead-dark th {
+  color: #fff;
+  background-color: #343a40;
+  border-color: #454d55;
+}
+
+/* Department specific styles */
+.dept-computer-science {
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.dept-computer-science:hover {
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.5);
+}
+
+.dept-mathematics {
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.dept-mathematics:hover {
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.5);
+}
+
+.dept-physics {
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.dept-physics:hover {
+  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.5);
+}
+
+/* Add more department styles as needed */

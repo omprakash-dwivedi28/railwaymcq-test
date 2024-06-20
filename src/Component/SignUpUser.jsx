@@ -18,7 +18,7 @@ export default function SignUpUser(props) {
     userName: "",
     password: "",
     partener_flag: "0",
-    api: "",
+    // api: "",
     ch_id: "",
   });
   const [errors, setErrors] = useState({});
@@ -81,11 +81,20 @@ export default function SignUpUser(props) {
       "userName",
       "password",
     ];
+
+    if (isPartener) {
+      requiredFields.push("ch_id");
+    }
+
+    // let hasErrors = false;
+    // const newErrors = {};
+
     for (const field of requiredFields) {
       if (!formData[field]) {
         setErrors((prevState) => ({
           ...prevState,
           [field]: `Please fill in the ${field} field`,
+          // hasErrors = true;
         }));
         return;
       }
@@ -115,7 +124,7 @@ export default function SignUpUser(props) {
         userName: "",
         password: "",
         partener_flag: "0",
-        api: "",
+        // api: "",
         ch_id: "",
       });
       setIsPartener(false);
@@ -158,14 +167,14 @@ export default function SignUpUser(props) {
         </label>
         {isPartener ? (
           <>
-            <input
+            {/* <input
               type="text"
               name="api"
               value={formData.api}
               onChange={handleChange}
               placeholder="Enter Your YouTube API"
               required={isPartener}
-            />
+            /> */}
             <input
               type="text"
               name="ch_id"

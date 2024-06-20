@@ -51,6 +51,16 @@ const AdminPage = () => {
               Add Department
             </Link>
           </li>
+          <li>
+            <Link to="/VideoApproval" className="menu-item">
+              Video Approval
+            </Link>
+          </li>
+          <li>
+            <Link to="/SummaryVideo" className="menu-item">
+              Video Summary
+            </Link>
+          </li>
         </ul>
         <Logout />
       </div>
