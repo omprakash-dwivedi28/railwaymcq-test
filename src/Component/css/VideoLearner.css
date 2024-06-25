@@ -1,124 +1,145 @@
 .video-learner-container {
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
 }
 
 .video-learner-heading {
   text-align: center;
-  margin-bottom: 20px;
-  color: #333;
 }
 
 .total-videos {
   text-align: center;
-  margin-bottom: 20px;
-  color: #666;
 }
 
 .search-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
   justify-content: center;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
-.search-box {
-  flex: 1 1 200px;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.filter-select {
-  flex: 1 1 200px;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.datepicker-container {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.datepicker-container label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 14px;
-}
-
+.search-box,
+.filter-select,
 .date-box {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
 .video-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
 }
 
 .video-item {
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 10px;
-  text-align: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .video-wrapper {
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.video-id {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.video-player {
+  margin-bottom: 15px;
+}
+
+.video-info {
+  text-align: center;
 }
 
 .video-title {
-  font-size: 18px;
-  margin-top: 10px;
-  color: #333;
+  font-size: 1.2em;
+  margin: 10px 0;
 }
 
-.watch-link {
-  display: inline-block;
-  margin-top: 10px;
-  text-decoration: none;
-  color: #0073e6;
-  font-size: 14px;
+.video-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.like-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.like-button.liked {
+  color: green;
+}
+
+.comment-section {
+  margin-top: 15px;
+  width: 100%;
+}
+
+.comment-box {
+  width: calc(100% - 40px);
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.send-icon,
+.send-icon:hover {
+  cursor: pointer;
+}
+
+.comments-list {
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #f9f9f9;
+}
+
+.comment {
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 5px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.comment:last-child {
+  border-bottom: none;
 }
 
 .pagination-buttons {
   display: flex;
   justify-content: center;
-  gap: 10px;
   margin-top: 20px;
 }
 
 .pagination-buttons button {
   padding: 10px 20px;
-  font-size: 16px;
+  border-radius: 5px;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: #0073e6;
+  background-color: #007bff;
   color: white;
-  transition: background-color 0.3s;
+  cursor: pointer;
+  margin: 0 5px;
 }
 
 .pagination-buttons button:disabled {
-  background-color: #ddd;
+  background-color: #ccc;
   cursor: not-allowed;
-}
-
-.pagination-buttons button:hover:not(:disabled) {
-  background-color: #005bb5;
 }
 
 .modal {
@@ -129,41 +150,33 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 1000;
+  align-items: center;
 }
 
 .modal-content {
   background: white;
   padding: 20px;
-  border-radius: 4px;
-  position: relative;
+  border-radius: 10px;
 }
 
 .close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 5px 10px;
-  background: red;
+  background: #f44336;
   color: white;
   border: none;
-  border-radius: 4px;
+  padding: 10px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
-}
-.iframe-container {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
-  height: 0;
 }
 
-.iframe-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.watch-link {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  color: #007bff;
+  text-decoration: none;
+}
+.comment-section1 {
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Align items vertically */
 }
