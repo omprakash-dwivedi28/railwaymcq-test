@@ -95,7 +95,7 @@ const LoginForm = () => {
         </form>
         <br />
 
-        <div>
+        <div className="btn-signup">
           <button type="submit" className="btn" onClick={handlalert}>
             New around here?Sign up
           </button>

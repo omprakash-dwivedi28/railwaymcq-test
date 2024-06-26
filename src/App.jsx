@@ -25,6 +25,7 @@ import AddDept from "./Component/AddDept.jsx";
 import AddVideolinksPartner from "./Component/AddVideolinksPartner.jsx";
 import VideoApproval from "./Component/VideoApproval.jsx";
 import SummaryVideo from "./Component/SummaryVideo.jsx";
+import TrandingVideos from "./Component/TrandingVideos.jsx";
 
 // import PdfReader from "./Component/PdfReader.jsx";
 
@@ -47,7 +48,7 @@ function App() {
         <Navbar title="Railway MCQ" quiz="MCQ Section" />
         <Alert alert={alert} />
         <Routes>
-          <Route path="/" element={<About />} />
+          <Route path="/" element={<TrandingVideos />} />
           <Route
             path="/FeedBack_user"
             element={<FeedBack_user showAlert={showAlert} />}
@@ -119,6 +120,10 @@ function App() {
           <Route
             path="/SummaryVideo"
             element={<SummaryVideo showAlert={showAlert} />}
+          />
+          <Route
+            path="/TrandingVideos"
+            element={<TrandingVideos showAlert={showAlert} />}
           />
           {/* <Route path="/PdfReader" element={<PdfReader />} /> */}
         </Routes>

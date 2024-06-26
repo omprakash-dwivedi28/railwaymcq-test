@@ -3,7 +3,7 @@ import YouTube from "react-youtube";
 import axios from "axios";
 import "../Component/css/VideoLearner.css";
 import { useInitialContext } from "../context/InitialContext";
-import { VscLoading } from "react-icons/vsc";
+import { RiLoader2Line } from "react-icons/ri";
 import { AiOutlineLike } from "react-icons/ai";
 import { IoSend } from "react-icons/io5";
 import { TbMessage2Down } from "react-icons/tb";
@@ -21,12 +21,9 @@ const VideoLearner = () => {
   const [searchFromDate, setSearchFromDate] = useState("");
   const [searchToDate, setSearchToDate] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [videolikes, setVideolikes] = useState(null);
-  const [active, setActive] = useState(false);
   const videosPerPage = 10;
   const { adminloginData } = useInitialContext();
   const [likedVideos, setLikedVideos] = useState(new Set());
-
   const [comments, setComments] = useState({});
   const [commentInput, setCommentInput] = useState({});
 
@@ -51,6 +48,7 @@ const VideoLearner = () => {
         "https://railwaymcq.com/student/subMaster_api.php"
       );
       setSubjects(response.data);
+      console.log("featch subject", response.data);
     } catch (error) {
       console.error(error);
     }
@@ -76,14 +74,6 @@ const VideoLearner = () => {
       console.error(error);
       setTopcodes([]);
     }
-  };
-
-  const handleVideoSelect = (video) => {
-    setSelectedVideo(video);
-  };
-
-  const handleCloseVideo = () => {
-    setSelectedVideo(null);
   };
 
   const handleSearchChange = (event) => {
@@ -175,14 +165,6 @@ const VideoLearner = () => {
         { videoId, updatelikeflag }
       );
       console.log("Update like Response:", response.data);
-      if (response.data.success) {
-        setLikedVideos(new Set(likedVideos.add(videoId)));
-        setVideos((prevVideos) =>
-          prevVideos.map((video) =>
-            video.id === videoId ? { ...video, likes: video.likes + 1 } : video
-          )
-        );
-      }
     } catch (error) {
       console.error("Failed to update likes", error);
     }
@@ -190,9 +172,30 @@ const VideoLearner = () => {
 
   const handlelikebtn = (video) => {
     if (!likedVideos.has(video.id)) {
-      updateLikes(video.id);
+      // Optimistically update the like count and button state
+      setVideos((prevVideos) =>
+        prevVideos.map((v) =>
+          v.id === video.id ? { ...v, likes: v.likes + 1 } : v
+        )
+      );
       setLikedVideos(new Set(likedVideos.add(video.id)));
-      setVideolikes(video.likes + 1);
+
+      // Make the server request to update the likes
+      updateLikes(video.id).catch((error) => {
+        console.error("Failed to update likes", error);
+
+        // Revert the optimistic update if the server request fails
+        setVideos((prevVideos) =>
+          prevVideos.map((v) =>
+            v.id === video.id ? { ...v, likes: v.likes - 1 } : v
+          )
+        );
+        setLikedVideos((prevLikedVideos) => {
+          const newLikedVideos = new Set(prevLikedVideos);
+          newLikedVideos.delete(video.id);
+          return newLikedVideos;
+        });
+      });
     }
   };
 
@@ -238,6 +241,10 @@ const VideoLearner = () => {
     }
   };
 
+  const handleCloseVideo = () => {
+    setSelectedVideo(null);
+  };
+
   return (
     <div className="video-learner-container">
       <div className="video-list">
@@ -260,8 +267,8 @@ const VideoLearner = () => {
           className="filter-select"
         >
           <option value="">Select Subject</option>
-          {subjects.map((subject, index) => (
-            <option key={index} value={subject.subcode}>
+          {subjects.map((subject) => (
+            <option key={subject.subcode} value={subject.subcode}>
               {subject.sub}
             </option>
           ))}
@@ -273,8 +280,8 @@ const VideoLearner = () => {
           className="filter-select"
         >
           <option value="">Select Topic</option>
-          {topcodes.map((topcode, index) => (
-            <option key={index} value={topcode.topcode}>
+          {topcodes.map((topcode) => (
+            <option key={topcode.topcode} value={topcode.topcode}>
               {topcode.topic}
             </option>
           ))}
@@ -302,8 +309,8 @@ const VideoLearner = () => {
       </div>
       {loading ? (
         <p>
-          <VscLoading />
-          Loading...
+          <RiLoader2Line fontSize="50" color="green" />
+          {/* Loading... */}
         </p>
       ) : (
         <div className="video-list">
@@ -320,7 +327,7 @@ const VideoLearner = () => {
                 <div className="video-info">
                   <h3 className="video-title">{video.title}</h3>
                   <div className="video-stats">
-                    <p className="views-count">Views: {video.views}</p>
+                    <div className="views-count">Views: {video.views}</div>
                     <div>
                       <div
                         type="button"
@@ -328,7 +335,7 @@ const VideoLearner = () => {
                           likedVideos.has(video.id) ? "liked" : ""
                         }`}
                         onClick={() => handlelikebtn(video)}
-                        disabled={active || likedVideos.has(video.id)}
+                        disabled={likedVideos.has(video.id)}
                       >
                         <AiOutlineLike
                           fontSize={30}
@@ -366,15 +373,11 @@ const VideoLearner = () => {
                     {comments[video.id] && comments[video.id].length > 0 ? (
                       comments[video.id].map((comment, index) => (
                         <p key={index} className="comment">
-                          {/* {comment.comment}
-                           */}
                           {comment.comment ? comment.comment : comment.text}
-                          {/* {console.log(comment)} */}
                         </p>
                       ))
                     ) : (
-                      <p></p>
-                      // <p>No comments yet</p>
+                      <p>Click the fetch button to show previous comments.</p>
                     )}
                   </div>
                 </div>
