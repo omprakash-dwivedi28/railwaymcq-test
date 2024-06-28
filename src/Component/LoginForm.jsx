@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import AdminPage from "./AdminPage";
 import { useInitialContext } from "../context/InitialContext";
 import "../Component/css/LoginForm.css";
+import { FaUserTie } from "react-icons/fa";
+import { HiEyeSlash } from "react-icons/hi2";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -70,33 +72,46 @@ const LoginForm = () => {
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
           <div className="form-group">
-            <label>Username:</label>
+            <label>
+              <FaUserTie style={{ color: "blue" }} />
+            </label>
+
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="form-control"
+              placeholder="Type your user name"
             />
           </div>
           <div className="form-group">
-            <label>Password:</label>
+            <label>
+              <HiEyeSlash style={{ color: "blue" }} />
+            </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="form-control"
+              placeholder="Type your password"
             />
           </div>
 
           {error && <div className="error">{error}</div>}
-          <button type="submit" className="btn">
-            Login
-          </button>
+          <div>
+            <button type="submit" className="btn btn-outline-success">
+              Login
+            </button>
+          </div>
         </form>
         <br />
 
-        <div className="btn-signup">
-          <button type="submit" className="btn" onClick={handlalert}>
+        <div className="btn">
+          <button
+            type="submit"
+            className="btn btn-outline-success"
+            onClick={handlalert}
+          >
             New around here?Sign up
           </button>
         </div>

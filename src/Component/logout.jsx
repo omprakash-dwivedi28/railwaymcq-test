@@ -33,7 +33,7 @@ function Logout() {
   }, [adminloginData, navigate]);
   return (
     <div>
-      <button onClick={handleLogout} className="logout-btn">
+      <button onClick={handleLogout} className="btn btn-outline-danger">
         Logout
       </button>
     </div>

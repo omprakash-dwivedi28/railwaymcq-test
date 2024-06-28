@@ -2,10 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useInitialContext } from "../context/InitialContext";
 import "../Component/css/Navbar.css"; // Import your custom CSS
+// import Logout from "./Logout";
+import GoogleTranslate from "./GoogleTranslate";
+import { FaLanguage } from "react-icons/fa";
 
-export default function Navbar(PropTypes) {
-  const { zoneAndDivisionLoading, zoneAndDivisionData, zoneAndDivisionError } =
-    useInitialContext();
+export default function Navbar() {
+  const {
+    zoneAndDivisionLoading,
+    zoneAndDivisionData,
+    zoneAndDivisionError,
+    adminloginData,
+  } = useInitialContext();
 
   return (
     <nav className="navbar navbar-expand-lg">
@@ -51,7 +58,12 @@ export default function Navbar(PropTypes) {
                 Login
               </Link>
             </li>
+            <li></li>
           </ul>
+        </div>
+        <div>
+          <FaLanguage style={{ color: "blue", fontSize: "50px" }} />
+          <GoogleTranslate />
         </div>
       </div>
     </nav>

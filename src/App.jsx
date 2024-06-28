@@ -26,6 +26,9 @@ import AddVideolinksPartner from "./Component/AddVideolinksPartner.jsx";
 import VideoApproval from "./Component/VideoApproval.jsx";
 import SummaryVideo from "./Component/SummaryVideo.jsx";
 import TrandingVideos from "./Component/TrandingVideos.jsx";
+import Logout from "./Component/logout.jsx";
+import Chatbot from "./Component/Chatbot.jsx";
+import GoogleTranslate from "./Component/GoogleTranslate.jsx";
 
 // import PdfReader from "./Component/PdfReader.jsx";
 
@@ -46,9 +49,12 @@ function App() {
     <InitialProvider>
       <BrowserRouter>
         <Navbar title="Railway MCQ" quiz="MCQ Section" />
+        <GoogleTranslate />
         <Alert alert={alert} />
+        {/* <GoogleTranslate /> */}
         <Routes>
           <Route path="/" element={<TrandingVideos />} />
+
           <Route
             path="/FeedBack_user"
             element={<FeedBack_user showAlert={showAlert} />}
@@ -66,6 +72,7 @@ function App() {
             path="/LoginForm"
             element={<LoginForm showAlert={showAlert} />}
           />
+
           <Route
             path="/QuizSetup"
             element={<QuizSetup showAlert={showAlert} />}
@@ -125,6 +132,8 @@ function App() {
             path="/TrandingVideos"
             element={<TrandingVideos showAlert={showAlert} />}
           />
+          <Route path="/logout" element={<Logout showAlert={showAlert} />} />
+          <Route path="/Chatbot" element={<Chatbot showAlert={showAlert} />} />
           {/* <Route path="/PdfReader" element={<PdfReader />} /> */}
         </Routes>
       </BrowserRouter>

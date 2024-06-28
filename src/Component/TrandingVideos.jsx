@@ -92,7 +92,7 @@ const TrandingVideos = () => {
 
   return (
     <div className="video-learner-container">
-      <h1 className="text-center mb-4">Tranding Videos </h1>
+      <h1 className="text-center mb-4">Trending Videos </h1>
       {loading ? (
         <p>
           <RiLoader2Line fontSize="50" color="green" />
@@ -101,7 +101,11 @@ const TrandingVideos = () => {
       ) : (
         <div className="video-list">
           {videos.map((video) => (
-            <div key={video.id} className="video-item">
+            <div
+              key={video.id}
+              className="video-item"
+              style={{ background: "white" }}
+            >
               <YouTube
                 videoId={video.link}
                 onPlay={() => updateViews(video.id)}

@@ -1,19 +1,28 @@
+/* VideoLearner.css */
+
 .video-learner-container {
   padding: 20px;
   font-family: Arial, sans-serif;
+  /* background-color: white; Set background color to white */
+  border: 1px solid #ccc; /* Add a border for clarity */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
 }
 
 .video-learner-heading {
   text-align: center;
+  margin-top: 0; /* Remove default margin */
 }
 
 .total-videos {
   text-align: center;
+  margin-bottom: 10px; /* Adjust margin */
 }
 
 .search-container {
   display: flex;
   justify-content: center;
+  align-items: center; /* Center items vertically */
   gap: 10px;
   margin-bottom: 20px;
 }
@@ -21,7 +30,8 @@
 .search-box,
 .filter-select,
 .date-box {
-  padding: 8px;
+  padding: 6px 10px; /* Smaller padding */
+  font-size: 14px; /* Smaller font size */
   border-radius: 5px;
   border: 1px solid #ccc;
 }
@@ -176,11 +186,13 @@
   color: #007bff;
   text-decoration: none;
 }
+
 .comment-section1 {
   display: flex; /* Use flexbox for layout */
   align-items: center; /* Align items vertically */
 }
-views-count {
+
+.views-count {
   font-size: 16px;
   color: #333;
   margin-top: 8px;

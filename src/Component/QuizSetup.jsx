@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../Component/css/QuizSetup.css"; // Import CSS file for styling
 import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 import { useInitialContext } from "../context/InitialContext";
-
+import { GiBullseye } from "react-icons/gi";
 function QuizSetup() {
   const [selectedOption, setSelectedOption] = useState("option2");
   const [name, setName] = useState("");
@@ -98,7 +98,9 @@ function QuizSetup() {
 
   return (
     <div className="quiz-setup-container">
-      <h1>Quiz Setup</h1>
+      <h1>
+        <GiBullseye style={{ color: "green" }} /> Quiz Setup
+      </h1>
       <div className="input-container">
         <label>Name:</label>
         <input

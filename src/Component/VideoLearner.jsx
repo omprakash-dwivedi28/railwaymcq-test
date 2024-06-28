@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import YouTube from "react-youtube";
 import axios from "axios";
-import "../Component/css/VideoLearner.css";
-import { useInitialContext } from "../context/InitialContext";
 import { RiLoader2Line } from "react-icons/ri";
 import { AiOutlineLike } from "react-icons/ai";
-import { IoSend } from "react-icons/io5";
 import { TbMessage2Down } from "react-icons/tb";
+import { IoSend } from "react-icons/io5";
+import "../Component/css/VideoLearner.css"; // Import your CSS file
+import { useInitialContext } from "../context/InitialContext";
 
 const VideoLearner = () => {
   const [videos, setVideos] = useState([]);
@@ -315,7 +315,11 @@ const VideoLearner = () => {
       ) : (
         <div className="video-list">
           {currentVideos.map((video) => (
-            <div key={video.id} className="video-item">
+            <div
+              key={video.id}
+              className="video-item"
+              style={{ background: "white" }}
+            >
               <div className="video-wrapper">
                 <div className="video-id">VID: {video.id}</div>
                 <YouTube
@@ -330,7 +334,6 @@ const VideoLearner = () => {
                     <div className="views-count">Views: {video.views}</div>
                     <div>
                       <div
-                        type="button"
                         className={`like-button ${
                           likedVideos.has(video.id) ? "liked" : ""
                         }`}
@@ -346,7 +349,7 @@ const VideoLearner = () => {
                     </div>
                   </div>
                 </div>
-                <div className="comment-section1">
+                <div className="comment-section">
                   <input
                     type="text"
                     placeholder="Add a comment..."
@@ -354,15 +357,15 @@ const VideoLearner = () => {
                     onChange={(e) => handleCommentChange(video.id, e)}
                     className="comment-box"
                   />
-                  <IoSend
-                    fontSize={60}
-                    color="green"
-                    onClick={() => handleCommentSubmit(video.id)}
-                    className="send-icon"
-                  />
-                </div>
-                <div className="comment-section">
-                  <div style={{ display: "flex", flexDirection: "column" }}>
+                  <div className="comment-buttons">
+                    <button
+                      type="button"
+                      className="btn btn-outline-success"
+                      onClick={() => handleCommentSubmit(video.id)}
+                    >
+                      <IoSend fontSize={20} className="send-icon" />
+                      Comment
+                    </button>
                     <TbMessage2Down
                       fontSize={30}
                       color="green"
