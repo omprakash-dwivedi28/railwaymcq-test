@@ -5,6 +5,7 @@ import "../Component/css/Navbar.css"; // Import your custom CSS
 // import Logout from "./Logout";
 import GoogleTranslate from "./GoogleTranslate";
 import { FaLanguage } from "react-icons/fa";
+import Chatbot from "./Chatbot";
 
 export default function Navbar() {
   const {
@@ -64,6 +65,7 @@ export default function Navbar() {
         <div>
           <FaLanguage style={{ color: "blue", fontSize: "50px" }} />
           <GoogleTranslate />
+          {/* <Chatbot /> */}
         </div>
       </div>
     </nav>

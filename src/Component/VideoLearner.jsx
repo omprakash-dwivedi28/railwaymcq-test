@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import YouTube from "react-youtube";
 import axios from "axios";
 import { RiLoader2Line } from "react-icons/ri";
-import { AiOutlineLike } from "react-icons/ai";
+import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { TbMessage2Down } from "react-icons/tb";
 import { IoSend } from "react-icons/io5";
 import "../Component/css/VideoLearner.css"; // Import your CSS file
 import { useInitialContext } from "../context/InitialContext";
+import StarRating from "./StarRating.jsx";
 
 const VideoLearner = () => {
   const [videos, setVideos] = useState([]);
@@ -21,9 +22,10 @@ const VideoLearner = () => {
   const [searchFromDate, setSearchFromDate] = useState("");
   const [searchToDate, setSearchToDate] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const videosPerPage = 10;
+  const videosPerPage = 5;
   const { adminloginData } = useInitialContext();
   const [likedVideos, setLikedVideos] = useState(new Set());
+  const [dislikedVideos, setdisLikedVideos] = useState(new Set());
   const [comments, setComments] = useState({});
   const [commentInput, setCommentInput] = useState({});
 
@@ -144,7 +146,7 @@ const VideoLearner = () => {
         { videoId, updateviewsflag }
       );
 
-      console.log("Update views Response:", response.data);
+      console.log("Update views Response:");
       if (response.data.success) {
         setVideos((prevVideos) =>
           prevVideos.map((video) =>
@@ -164,15 +166,27 @@ const VideoLearner = () => {
         "https://railwaymcq.com/student/updatevideoviews.php",
         { videoId, updatelikeflag }
       );
-      console.log("Update like Response:", response.data);
+      console.log("Update like Response:");
     } catch (error) {
       console.error("Failed to update likes", error);
     }
   };
 
+  const updatedisLikes = async (videoId) => {
+    try {
+      const updatedislikeflag = "1";
+      const response = await axios.post(
+        "https://railwaymcq.com/student/updatevideoviews.php",
+        { videoId, updatedislikeflag }
+      );
+      console.log("Update dislike Response:", response.data);
+    } catch (error) {
+      console.error("Failed to update dislikes", error);
+    }
+  };
+
   const handlelikebtn = (video) => {
     if (!likedVideos.has(video.id)) {
-      // Optimistically update the like count and button state
       setVideos((prevVideos) =>
         prevVideos.map((v) =>
           v.id === video.id ? { ...v, likes: v.likes + 1 } : v
@@ -180,11 +194,9 @@ const VideoLearner = () => {
       );
       setLikedVideos(new Set(likedVideos.add(video.id)));
 
-      // Make the server request to update the likes
       updateLikes(video.id).catch((error) => {
         console.error("Failed to update likes", error);
 
-        // Revert the optimistic update if the server request fails
         setVideos((prevVideos) =>
           prevVideos.map((v) =>
             v.id === video.id ? { ...v, likes: v.likes - 1 } : v
@@ -194,6 +206,31 @@ const VideoLearner = () => {
           const newLikedVideos = new Set(prevLikedVideos);
           newLikedVideos.delete(video.id);
           return newLikedVideos;
+        });
+      });
+    }
+  };
+
+  const handledislikebtn = (video) => {
+    if (!dislikedVideos.has(video.id)) {
+      setVideos((prevVideos) =>
+        prevVideos.map((v) =>
+          v.id === video.id ? { ...v, dislikes: v.dislikes + 1 } : v
+        )
+      );
+      setdisLikedVideos(new Set(dislikedVideos.add(video.id)));
+
+      updatedisLikes(video.id).catch((error) => {
+        console.error("Failed to update dislikes", error);
+        setVideos((prevVideos) =>
+          prevVideos.map((v) =>
+            v.id === video.id ? { ...v, dislikes: v.dislikes - 1 } : v
+          )
+        );
+        setdisLikedVideos((prevdisLikedVideos) => {
+          const newdisLikedVideos = new Set(prevdisLikedVideos);
+          newdisLikedVideos.delete(video.id);
+          return newdisLikedVideos;
         });
       });
     }
@@ -286,31 +323,10 @@ const VideoLearner = () => {
             </option>
           ))}
         </select>
-        <div className="datepicker-container">
-          <label>
-            Start Date:
-            <input
-              type="date"
-              value={searchFromDate}
-              onChange={(e) => handleDateChange(e, "from")}
-              className="date-box"
-            />
-          </label>
-          <label>
-            End Date:
-            <input
-              type="date"
-              value={searchToDate}
-              onChange={(e) => handleDateChange(e, "to")}
-              className="date-box"
-            />
-          </label>
-        </div>
       </div>
       {loading ? (
         <p>
           <RiLoader2Line fontSize="50" color="green" />
-          {/* Loading... */}
         </p>
       ) : (
         <div className="video-list">
@@ -321,7 +337,7 @@ const VideoLearner = () => {
               style={{ background: "white" }}
             >
               <div className="video-wrapper">
-                <div className="video-id">VID: {video.id}</div>
+                <div className="video-id">VIDEO ID: {video.id}</div>
                 <YouTube
                   videoId={video.link}
                   onPlay={() => updateViews(video.id)}
@@ -332,20 +348,31 @@ const VideoLearner = () => {
                   <h3 className="video-title">{video.title}</h3>
                   <div className="video-stats">
                     <div className="views-count">Views: {video.views}</div>
-                    <div>
-                      <div
-                        className={`like-button ${
-                          likedVideos.has(video.id) ? "liked" : ""
-                        }`}
-                        onClick={() => handlelikebtn(video)}
-                        disabled={likedVideos.has(video.id)}
-                      >
-                        <AiOutlineLike
-                          fontSize={30}
-                          color={likedVideos.has(video.id) ? "green" : "red"}
-                        />
-                      </div>
+                    <div
+                      className={`like-button ${
+                        likedVideos.has(video.id) ? "liked" : ""
+                      }`}
+                      onClick={() => handlelikebtn(video)}
+                      disabled={likedVideos.has(video.id)}
+                    >
+                      <AiOutlineLike
+                        fontSize={30}
+                        color={likedVideos.has(video.id) ? "green" : "gray"}
+                      />
                       <span className="like-count">{video.likes}</span>
+                    </div>
+                    <div
+                      className={`dislike-button ${
+                        dislikedVideos.has(video.id) ? "disliked" : ""
+                      }`}
+                      onClick={() => handledislikebtn(video)}
+                      disabled={dislikedVideos.has(video.id)}
+                    >
+                      <AiOutlineDislike
+                        fontSize={30}
+                        color={dislikedVideos.has(video.id) ? "red" : "gray"}
+                      />
+                      <span className="like-count">{video.dislikes}</span>
                     </div>
                   </div>
                 </div>
@@ -393,10 +420,17 @@ const VideoLearner = () => {
               >
                 Watch on YouTube
               </a>
+              <div className="rating-container">
+                <div className="centered-item">
+                  <StarRating videoId={video.id} />
+                </div>
+              </div>
+              <div className="video-list"></div>
             </div>
           ))}
         </div>
       )}
+
       <div className="pagination-buttons">
         <button onClick={handlePreviousPage} disabled={currentPage === 1}>
           Previous

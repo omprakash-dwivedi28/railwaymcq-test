@@ -61,6 +61,11 @@ const AdminPage = () => {
               Video Summary
             </Link>
           </li>
+          <li>
+            <Link to="/VideoModification" className="menu-item">
+              Video Modification
+            </Link>
+          </li>
         </ul>
         <Logout />
       </div>

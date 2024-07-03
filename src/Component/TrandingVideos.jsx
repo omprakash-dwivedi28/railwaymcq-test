@@ -126,10 +126,10 @@ const TrandingVideos = () => {
                   >
                     <AiOutlineLike
                       fontSize={30}
-                      color={likedVideos.has(video.id) ? "green" : "red"}
+                      color={likedVideos.has(video.id) ? "green" : "gray"}
                     />
+                    <span className="like-count">{video.likes}</span>
                   </div>
-                  <span className="like-count">{video.likes}</span>
                 </div>
               </div>
               <a

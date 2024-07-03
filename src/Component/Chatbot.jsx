@@ -6,30 +6,34 @@ const Chatbot = () => {
   const [input, setInput] = useState("");
 
   const sendMessage = async () => {
-    const response = await axios.post(
-      "https://dialogflow.googleapis.com/v2/projects/YOUR_PROJECT_ID/agent/sessions/YOUR_SESSION_ID:detectIntent",
-      {
-        queryInput: {
-          text: {
-            text: input,
-            languageCode: "en-US",
+    try {
+      const response = await axios.post(
+        "https://dialogflow.googleapis.com/v2/projects/YOUR_PROJECT_ID/agent/sessions/YOUR_SESSION_ID:detectIntent",
+        {
+          queryInput: {
+            text: {
+              text: input,
+              languageCode: "en-US",
+            },
           },
         },
-      },
-      {
-        headers: {
-          Authorization: `Bearer YOUR_ACCESS_TOKEN`,
-        },
-      }
-    );
+        {
+          headers: {
+            Authorization: `Bearer YOUR_ACCESS_TOKEN`,
+          },
+        }
+      );
 
-    const reply = response.data.queryResult.fulfillmentText;
-    setMessages([
-      ...messages,
-      { text: input, from: "user" },
-      { text: reply, from: "bot" },
-    ]);
-    setInput("");
+      const reply = response.data.queryResult.fulfillmentText;
+      setMessages([
+        ...messages,
+        { text: input, from: "user" },
+        { text: reply, from: "bot" },
+      ]);
+      setInput("");
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
   };
 
   return (

@@ -28,7 +28,6 @@ import SummaryVideo from "./Component/SummaryVideo.jsx";
 import TrandingVideos from "./Component/TrandingVideos.jsx";
 import Logout from "./Component/logout.jsx";
 import Chatbot from "./Component/Chatbot.jsx";
-import GoogleTranslate from "./Component/GoogleTranslate.jsx";
 
 // import PdfReader from "./Component/PdfReader.jsx";
 
@@ -49,7 +48,7 @@ function App() {
     <InitialProvider>
       <BrowserRouter>
         <Navbar title="Railway MCQ" quiz="MCQ Section" />
-        <GoogleTranslate />
+
         <Alert alert={alert} />
         {/* <GoogleTranslate /> */}
         <Routes>
