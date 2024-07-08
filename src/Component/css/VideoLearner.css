@@ -19,7 +19,7 @@
 
 .search-container {
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
@@ -162,6 +162,11 @@
   justify-content: center;
   margin-top: 20px;
 }
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 
 .pagination-buttons button {
   padding: 10px 20px;
@@ -261,4 +266,10 @@
   border-radius: 5px; /* Rounded corners */
   text-align: center; /* Center align text */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Box shadow for depth */
+}
+
+.pagination-container input {
+  width: 50px;
+  margin: 0 10px;
+  text-align: center;
 }

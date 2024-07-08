@@ -344,8 +344,8 @@ textarea {
 }
 .delete-note-icon {
   cursor: pointer;
-  color: red; /* Change color as desired */
-  font-size: 20px; /* Adjust size as desired */
+  color: red;
+  font-size: 20px;
 }
 .note-container {
   display: flex;

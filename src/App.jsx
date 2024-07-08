@@ -28,6 +28,7 @@ import SummaryVideo from "./Component/SummaryVideo.jsx";
 import TrandingVideos from "./Component/TrandingVideos.jsx";
 import Logout from "./Component/logout.jsx";
 import Chatbot from "./Component/Chatbot.jsx";
+import VideoModification from "./Component/VideoModification.jsx";
 
 // import PdfReader from "./Component/PdfReader.jsx";
 
@@ -52,7 +53,7 @@ function App() {
         <Alert alert={alert} />
         {/* <GoogleTranslate /> */}
         <Routes>
-          <Route path="/" element={<TrandingVideos />} />
+          <Route path="/" element={<VideoLearner />} />
 
           <Route
             path="/FeedBack_user"
@@ -130,6 +131,10 @@ function App() {
           <Route
             path="/TrandingVideos"
             element={<TrandingVideos showAlert={showAlert} />}
+          />
+          <Route
+            path="/VideoModification"
+            element={<VideoModification showAlert={showAlert} />}
           />
           <Route path="/logout" element={<Logout showAlert={showAlert} />} />
           <Route path="/Chatbot" element={<Chatbot showAlert={showAlert} />} />

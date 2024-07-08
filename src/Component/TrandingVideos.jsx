@@ -106,6 +106,12 @@ const TrandingVideos = () => {
               className="video-item"
               style={{ background: "white" }}
             >
+              <div className="badge text-bg-secondary">
+                subject: {video.sub}
+              </div>
+              <div className="badge text-bg-secondary">
+                topic: {video.topic}
+              </div>
               <YouTube
                 videoId={video.link}
                 onPlay={() => updateViews(video.id)}

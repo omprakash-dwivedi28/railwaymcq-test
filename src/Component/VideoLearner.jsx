@@ -28,6 +28,7 @@ const VideoLearner = () => {
   const [dislikedVideos, setdisLikedVideos] = useState(new Set());
   const [comments, setComments] = useState({});
   const [commentInput, setCommentInput] = useState({});
+  const [paginationDisabled, setPaginationDisabled] = useState(true);
 
   useEffect(() => {
     fetch("https://railwaymcq.com/student/videolinks_api.php")
@@ -136,6 +137,9 @@ const VideoLearner = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
+  };
+  const handlePageClick = (page) => {
+    setCurrentPage(page);
   };
 
   const updateViews = async (videoId) => {
@@ -282,6 +286,13 @@ const VideoLearner = () => {
     setSelectedVideo(null);
   };
 
+  // const handleVideoSelect = (video) => {
+  //   setSelectedVideo(video);
+  //   updateViews(video.id);
+  // };
+  useEffect(() => {
+    setPaginationDisabled(loading); // Disable pagination buttons when loading
+  }, [loading]);
   return (
     <div className="video-learner-container">
       <div className="video-list">
@@ -337,7 +348,13 @@ const VideoLearner = () => {
               style={{ background: "white" }}
             >
               <div className="video-wrapper">
-                <div className="video-id">VIDEO ID: {video.id}</div>
+                <div className="badge text-bg-secondary">
+                  subject: {video.sub}
+                </div>
+                <div className="badge text-bg-secondary">
+                  topic: {video.topic}
+                </div>
+                <div className="video-id">Video id: {video.id}</div>
                 <YouTube
                   videoId={video.link}
                   onPlay={() => updateViews(video.id)}
@@ -430,7 +447,6 @@ const VideoLearner = () => {
           ))}
         </div>
       )}
-
       <div className="pagination-buttons">
         <button onClick={handlePreviousPage} disabled={currentPage === 1}>
           Previous
@@ -453,6 +469,52 @@ const VideoLearner = () => {
           </div>
         </div>
       )}
+      <div className="pagination">
+        <button
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1 || paginationDisabled}
+        >
+          Previous
+        </button>
+
+        {Array.from({ length: totalPages }, (_, index) => {
+          const shouldDisplay =
+            index + 1 === 1 ||
+            index + 1 === currentPage ||
+            index + 1 === totalPages ||
+            index + 1 === currentPage - 1 ||
+            index + 1 === currentPage - 2 ||
+            index + 1 === currentPage + 1 ||
+            index + 1 === currentPage + 2;
+
+          if (shouldDisplay) {
+            return (
+              <button
+                key={index}
+                className={currentPage === index + 1 ? "active" : ""}
+                onClick={() => handlePageClick(index + 1)}
+                disabled={paginationDisabled}
+              >
+                {index + 1}
+              </button>
+            );
+          } else if (
+            (index === 3 && totalPages > 5) ||
+            (index === totalPages - 3 && totalPages > 5)
+          ) {
+            return <span key={index}>...</span>;
+          }
+
+          return null;
+        })}
+
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages || paginationDisabled}
+        >
+          Next
+        </button>
+      </div>{" "}
     </div>
   );
 };

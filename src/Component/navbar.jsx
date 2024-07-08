@@ -6,6 +6,7 @@ import "../Component/css/Navbar.css"; // Import your custom CSS
 import GoogleTranslate from "./GoogleTranslate";
 import { FaLanguage } from "react-icons/fa";
 import Chatbot from "./Chatbot";
+import { FaTrainTram } from "react-icons/fa6";
 
 export default function Navbar() {
   const {
@@ -19,7 +20,8 @@ export default function Navbar() {
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
-          MyApp
+          <FaTrainTram style={{ color: "blue", fontSize: "25 px" }} />
+          MyRailApp
         </a>
         <button
           className="navbar-toggler"
